@@ -20,8 +20,25 @@ Según la imagen el pin 13 se puede utilizar tanto de entrada como de salida. El
 Por otro lado se define un loop en el cual se irá repitiendo el proceso de abrir y apagar el led en intervalos de 500ms y a la vez mostrando el mensaje que está abierto o apagado. 
 
 Por último se montará el programa y se cargará a la esp32 mediante la extensión de PlatfromIO de visual studio code.
+<<<<<<< Updated upstream
                                                   ![](Aspose.Words.407fae54-a13e-4202-9654-6184a4f8af9e.001.png)
+=======
+![](Aspose.Words.407fae54-a13e-4202-9654-6184a4f8af9e.001.png)
+
+### **Diagrama** 
+```mermaid
+graph LR
+    A[LED ON] --> B[Msg LED ON]
+    B[Msg LED ON] --> C[wait 500 ms]
+
+    C[wait 500 ms] --> D[LED OFF]
+    D[LED OFF] --> E[Msg LED OFF]
+    E[Msg LED OFF] --> F[wait 500 ms]
+    F[wait 500 ms] --> A[LED ON]
+```
+>>>>>>> Stashed changes
 ## **Respuestas y conclusiones** 
+### **Diagrama de tiempos** 
 ![](Aspose.Words.407fae54-a13e-4202-9654-6184a4f8af9e.002.png)
 
 Como se ve en el gráfico de tiempo se puede observar que cada 500ms el led cambia de estar encendido a apagado hasta que paramos el programa.
