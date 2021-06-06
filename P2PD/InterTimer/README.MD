@@ -100,5 +100,5 @@ void loop() {
   }
 }
 ```
-##Referencias
+## Referencias
 [https://techtutorialsx.com/2017/10/07/esp32-arduino-timer-interrupts/](https://techtutorialsx.com/2017/10/07/esp32-arduino-timer-interrupts/)
