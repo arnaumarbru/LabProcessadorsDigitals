@@ -7,7 +7,6 @@ void setup() {
   pinMode(led, OUTPUT);    //se inicialia el pin como una salida
 }
 
-// the loop routine runs over and over again forever:
 void loop() {
   digitalWrite(led, HIGH); //Se abre el led
   Serial.print("ON"); //Se muestra mensaje on
