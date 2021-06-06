@@ -13,15 +13,14 @@ Mediante referencia Github que se da en el documento de prácticas se busca prod
 ## **Setup y Funcionamiento**
 En primer lugar, se inicia el entorno de trabajo, se escoge el dispositivo en nuestro caso esp32dev.
 
-![Interfaz de usuario gráfica
-
-Descripción generada automáticamente con confianza media](Aspose.Words.407fae54-a13e-4202-9654-6184a4f8af9e.001.png)A continuación, se escoge el pin en el que se conectara el led: 
+A continuación, se escoge el pin en el que se conectara el led: 
 
 Según la imagen el pin 13 se puede utilizar tanto de entrada como de salida. El led actúa como salida con lo cual se puede utiliar el pin.
 
 Por otro lado se define un loop en el cual se irá repitiendo el proceso de abrir y apagar el led en intervalos de 500ms y a la vez mostrando el mensaje que está abierto o apagado. 
 
 Por último se montará el programa y se cargará a la esp32 mediante la extensión de PlatfromIO de visual studio code.
+![](Aspose.Words.407fae54-a13e-4202-9654-6184a4f8af9e.001.png)
 ## **Respuestas y conclusiones** 
 ![](Aspose.Words.407fae54-a13e-4202-9654-6184a4f8af9e.002.png)
 
