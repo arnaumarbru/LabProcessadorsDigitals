@@ -9,9 +9,9 @@ void setup() {
 
 void loop() {
   digitalWrite(led, HIGH); //Se abre el led
-  Serial.print("ON"); //Se muestra mensaje on
+  Serial.println("ON"); //Se muestra mensaje on
   delay(500);               // se espera medio segundo
   digitalWrite(led, LOW);    //Se cierra el led
-  Serial.print("OFF");  //Se muestra mensaje off
+  Serial.println("OFF");  //Se muestra mensaje off
   delay(500);        // se espera medio segundo  
 }
