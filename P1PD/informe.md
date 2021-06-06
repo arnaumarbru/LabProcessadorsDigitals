@@ -20,7 +20,7 @@ Según la imagen el pin 13 se puede utilizar tanto de entrada como de salida. El
 Por otro lado se define un loop en el cual se irá repitiendo el proceso de abrir y apagar el led en intervalos de 500ms y a la vez mostrando el mensaje que está abierto o apagado. 
 
 Por último se montará el programa y se cargará a la esp32 mediante la extensión de PlatfromIO de visual studio code.
-![](Aspose.Words.407fae54-a13e-4202-9654-6184a4f8af9e.001.png)
+                                                  ![](Aspose.Words.407fae54-a13e-4202-9654-6184a4f8af9e.001.png)
 ## **Respuestas y conclusiones** 
 ![](Aspose.Words.407fae54-a13e-4202-9654-6184a4f8af9e.002.png)
 
