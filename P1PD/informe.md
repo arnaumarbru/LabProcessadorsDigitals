@@ -34,7 +34,6 @@ graph LR
     E[Msg LED OFF] --> F[wait 500 ms]
     F[wait 500 ms] --> A[LED ON]
 ```
->>>>>>> Stashed changes
 ## **Respuestas y conclusiones** 
 ### **Diagrama de tiempos** 
 ![](Aspose.Words.407fae54-a13e-4202-9654-6184a4f8af9e.002.png)
