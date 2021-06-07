@@ -1,0 +1,111 @@
+<h1 id="generaci-n-de-una-p-gina-web">Generación de una página web</h1>
+<h2 id="-introducci-n-"><strong>Introducción</strong></h2>
+<p>Se generará un web server mediante la esp32.   </p>
+<h2 id="-material-"><strong>Material</strong></h2>
+<ul>
+<li>esp32-Wroom-32D</li>
+<li>Software anteriormente mencionado </li>
+</ul>
+<h2 id="-setup-y-funcionamiento-"><strong>Setup y funcionamiento</strong></h2>
+<p>Al igual que en la primera práctica se prepara el entorno de trabajo con VS studio y la extensión de PlatformIO.</p>
+<p>A continuación implementamos el código dado en el enunciado de la práctica.</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;WiFi.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;WebServer.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Arduino.h&gt;</span></span>
+</code></pre>
+<p>Se definen las cabeceras necesarias para la práctica.</p>
+<pre><code class="lang-cpp"><span class="hljs-comment">// SSID &amp; Password</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* ssid = <span class="hljs-string">"Mi11lite5g"</span>; <span class="hljs-comment">// Enter your SSID here</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* password = <span class="hljs-string">"123456789"</span>; <span class="hljs-comment">//Enter your Password here</span>
+
+<span class="hljs-function">WebServer <span class="hljs-title">server</span><span class="hljs-params">(<span class="hljs-number">80</span>)</span></span>; <span class="hljs-comment">// Object of WebServer(HTTP port, 80 is defult)</span>
+</code></pre>
+<p>En las variables se completan con los datos del wifi y su contraseña que servirá para conectar la esp32 a la red. Se utilizará el puerto HTTP por defecto.</p>
+<pre><code class="lang-cpp"><span class="hljs-keyword">void</span> <span class="hljs-built_in">setup</span>() {
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(<span class="hljs-string">"Try Connecting to "</span>);
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(ssid);
+<span class="hljs-comment">// Connect to your wi-fi modem</span>
+  <span class="hljs-built_in">WiFi</span>.<span class="hljs-built_in">begin</span>(ssid, password);
+<span class="hljs-comment">// Check wi-fi is connected to wi-fi network</span>
+  <span class="hljs-built_in">while</span> (<span class="hljs-built_in">WiFi</span>.status() != WL_CONNECTED) {
+    <span class="hljs-built_in">delay</span>(<span class="hljs-number">1000</span>);
+    <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">print</span>(<span class="hljs-string">"."</span>);
+  }
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(<span class="hljs-string">""</span>);
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(<span class="hljs-string">"WiFi connected successfully"</span>);
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">print</span>(<span class="hljs-string">"Got IP: "</span>);
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(<span class="hljs-built_in">WiFi</span>.<span class="hljs-built_in">localIP</span>()); <span class="hljs-comment">//Show ESP32 IP on serial</span>
+  server.on(<span class="hljs-string">"/"</span>, handle_root);
+  server.<span class="hljs-built_in">begin</span>();
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(<span class="hljs-string">"HTTP server started"</span>);
+  <span class="hljs-built_in">delay</span>(<span class="hljs-number">100</span>);
+}
+</code></pre>
+<p>En el setup se comprovará por mensajes que la placa se conecta al modem, cuando se haya conectado aparecerá el mensaje que se ha connectado y a continuación también se mostrará si se ha podido generar el servidor http.</p>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+server.handleClient();}
+</code></pre>
+<p>Con la función <em>handleClient()</em> servirá para recibir peticiones del servidor.</p>
+<pre><code class="lang-cpp">String HTML = "<span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>\
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>\
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>\
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>My Primera Pagina con ESP32 - Station Mode &amp;#128522;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>\
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>\
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>";
+// Handle root url (/)
+void handle_root() {
+  server.send(200, "text/html", HTML);
+}
+</code></pre>
+<p>Finalmente se envia en formato html lo que se quiere enviar en el servidor. La función <em>handle_root()</em> servirá para enviar el contenido del código html creado.</p>
+<h2 id="c-digo-completo">Código completo</h2>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;WiFi.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;WebServer.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Arduino.h&gt;</span></span>
+
+<span class="hljs-comment">// SSID &amp; Password</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* ssid = <span class="hljs-string">"Mi11lite5g"</span>; <span class="hljs-comment">// Enter your SSID here</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* password = <span class="hljs-string">"123456789"</span>; <span class="hljs-comment">//Enter your Password here</span>
+
+
+WebServer server(<span class="hljs-number">80</span>); <span class="hljs-comment">// Object of WebServer(HTTP port, 80 is defult)</span>
+
+<span class="hljs-keyword">void</span> <span class="hljs-built_in">setup</span>() {
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(<span class="hljs-string">"Try Connecting to "</span>);
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(ssid);
+<span class="hljs-comment">// Connect to your wi-fi modem</span>
+  <span class="hljs-built_in">WiFi</span>.<span class="hljs-built_in">begin</span>(ssid, password);
+<span class="hljs-comment">// Check wi-fi is connected to wi-fi network</span>
+  <span class="hljs-built_in">while</span> (<span class="hljs-built_in">WiFi</span>.status() != WL_CONNECTED) {
+    <span class="hljs-built_in">delay</span>(<span class="hljs-number">1000</span>);
+    <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">print</span>(<span class="hljs-string">"."</span>);
+  }
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(<span class="hljs-string">""</span>);
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(<span class="hljs-string">"WiFi connected successfully"</span>);
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">print</span>(<span class="hljs-string">"Got IP: "</span>);
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(<span class="hljs-built_in">WiFi</span>.<span class="hljs-built_in">localIP</span>()); <span class="hljs-comment">//Show ESP32 IP on serial</span>
+  server.on(<span class="hljs-string">"/"</span>, handle_root);
+  server.<span class="hljs-built_in">begin</span>();
+  <span class="hljs-built_in">Serial</span>.<span class="hljs-built_in">println</span>(<span class="hljs-string">"HTTP server started"</span>);
+  <span class="hljs-built_in">delay</span>(<span class="hljs-number">100</span>);
+}
+
+<span class="hljs-keyword">void</span> <span class="hljs-built_in">loop</span>() {
+  server.handleClient();
+}
+<span class="hljs-comment">// HTML &amp; CSS contents which display on web server</span>
+<span class="hljs-keyword">String</span> HTML = <span class="hljs-string">"&lt;!DOCTYPE html&gt;\
+&lt;html&gt;\
+&lt;body&gt;\
+&lt;h1&gt;My Primera Pagina con ESP32 - Station Mode &amp;#128522;&lt;/h1&gt;\
+&lt;/body&gt;\
+&lt;/html&gt;"</span>;
+<span class="hljs-comment">// Handle root url (/)</span>
+<span class="hljs-keyword">void</span> handle_root() {
+  server.send(<span class="hljs-number">200</span>, <span class="hljs-string">"text/html"</span>, HTML);
+}
+</code></pre>
+<h2 id="referencias">Referencias</h2>
+<p><a href="https://www.luisllamas.es/esp8266-servidor-parmetros/">https://www.luisllamas.es/esp8266-servidor-parmetros/</a></p>
